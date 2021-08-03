@@ -1,0 +1,42 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="getLink.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="WindowLocationTop" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">500</Value>
+    </Setting>
+    <Setting Name="WindowLocationLeft" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">500</Value>
+    </Setting>
+    <Setting Name="OPEN0" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Open</Value>
+    </Setting>
+    <Setting Name="VIEW1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">View</Value>
+    </Setting>
+    <Setting Name="EXPLORE2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Explore</Value>
+    </Setting>
+    <Setting Name="GET3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Get</Value>
+    </Setting>
+    <Setting Name="LOCK4" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Lock</Value>
+    </Setting>
+    <Setting Name="PROPERTIES5" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Properties of</Value>
+    </Setting>
+    <Setting Name="HISTORY6" Type="System.String" Scope="User">
+      <Value Profile="(Default)">History of</Value>
+    </Setting>
+    <Setting Name="Format" Type="System.SByte" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="Action" Type="System.SByte" Scope="User">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="IsFileNameIncluded" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

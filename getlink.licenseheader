@@ -1,0 +1,17 @@
+﻿extensions: designer.cs generated.cs
+extensions: .cs .cpp .h
+//*********************************************************************
+//getLink
+//Copyright (c) 2021 Nikolay Korobiy
+//Product URL: https://github.com/korbnic/getLink
+//License: https://github.com/korbnic/getLink/blob/main/LICENSE
+//*********************************************************************
+extensions: .xaml .config
+<!--
+*********************************************************************
+getLink
+Copyright (c) 2021 Nikolay Korobiy
+Product URL: https://github.com/korbnic/getLink
+License: https://github.com/korbnic/getLink/blob/main/LICENSE
+*********************************************************************
+-->
