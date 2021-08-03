@@ -9,7 +9,7 @@ The getLink Add-in extends the functionality of SolidWorks PDM by making availab
   * [Accessing the Tool](#accessing-the-tool)
   * [Use the Tool](#use-the-tool)
   * [Adding a Button to a File Data Card](#adding-a-button-to-a-file-data-card)
-  * [BONUS: Simple Dispatch script](#bonus--simple-dispatch-script)
+  * [BONUS: Simple Dispatch script](#bonus-simple-dispatch-script)
 
 ## Installation
 
