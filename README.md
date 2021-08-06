@@ -3,6 +3,8 @@
 [![version](https://img.shields.io/badge/version-1.0.0-yellow.svg)](https://semver.org)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/korobokolas)
 
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/korbnic)
+
 The getLink Add-in extends the functionality of SolidWorks PDM by making available various hyperlinks to files or just path in plain text format. The hyperlinks created(or path) are copied to the Windows clipboard, from which they can be pasted where needed.
 
   * [Installation](#installation)
@@ -81,11 +83,11 @@ The **ACTION** section determines what the hyperlink will do.
 | HISTORY | Brings up the file history. |
 
 **Example #1**  
-With ‘FORMATTED’ and ‘LOCK’ selected:  
+With ‘FORMATED’ and ‘LOCK’ selected:  
 *Result in clipboard:* [Lock CAD-2104.000323.SLDPRT]()
 
 **Example #2**  
-With ‘FORMATTED’ and ‘OPEN’ selected, and the text customized in 'prefix:' to be ‘Launch’:  
+With ‘FORMATED’ and ‘OPEN’ selected, and the text customized in 'prefix:' to be ‘Launch’:  
 *Result in clipboard:* [Launch CAD-2104.000323.SLDPRT]()
 
 **Example #3**  
