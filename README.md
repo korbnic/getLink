@@ -3,7 +3,7 @@
 [![version](https://img.shields.io/badge/version-1.0.0-yellow.svg)](https://semver.org)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/korobokolas)
 
-[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/korbnic)
+<a href="https://www.buymeacoffee.com/korbnic"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a book&emoji=📖&slug=korbnic&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff"></a>
 
 The getLink Add-in extends the functionality of SolidWorks PDM by making available various hyperlinks to files or just path in plain text format. The hyperlinks created(or path) are copied to the Windows clipboard, from which they can be pasted where needed.
 
