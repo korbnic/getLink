@@ -1,7 +1,26 @@
 # getLink Add-in for SolidWorks PDM
 
-[![version](https://img.shields.io/badge/version-1.0.0-yellow.svg)](https://semver.org)
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/korobokolas)
+[![version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://semver.org)
+[![licence badge]][licence]
+[![stars badge]][stars]
+[![forks badge]][forks]
+[![issues badge]][issues]
+[![bug report badge]][bug report]
+[![feature request badge]][feature request]
+
+[licence badge]:https://img.shields.io/badge/license-MIT-blue.svg
+[stars badge]:https://img.shields.io/github/stars/korbnic/getLink.svg
+[forks badge]:https://img.shields.io/github/forks/korbnic/getLink.svg
+[issues badge]:https://img.shields.io/github/issues/korbnic/getLink.svg
+[bug report badge]:https://img.shields.io/github/issues/korbnic/getLink/Bug%20Report.svg
+[feature request badge]:https://img.shields.io/github/issues/korbnic/getLink/Feature%20Request.svg
+
+[licence]:https://github.com/korbnic/getLink/blob/main/LICENSE
+[stars]:https://github.com/korbnic/getLink/stargazers
+[forks]:https://github.com/korbnic/getLink/network
+[issues]:https://github.com/korbnic/getLink/issues
+[bug report]:https://github.com/korbnic/getLink/issues?q=is%3Aopen+is%3Aissue+label%3A%22Bug+Report%22
+[feature request]:https://github.com/korbnic/getLink/issues?q=is%3Aopen+is%3Aissue+label%3A%22Feature+Request%22
 
 <a href="https://www.buymeacoffee.com/korbnic"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a book&emoji=📖&slug=korbnic&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff"></a>
 
