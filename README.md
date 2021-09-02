@@ -127,8 +127,10 @@ To open About window you need to click on '?' symbol which located near close wi
 
 ## Adding a Button to a File Data Card
 
-A button can be added to a File Data Card by editing the card in the Card Editor. Set the 'Command type' of the button to be 'Run Add-in'. Set the 'Name of add-in' to be '\_getLink\_':
-
+A button can be added to a File Data Card by editing the card in the Card Editor. Set the 'Command type' of the button to be 'Run Add-in'. Set the 'Name of add-in' to be:  
+```
+_getLink_
+```
 ![Image 10](./images/img10.png)
 
 ## BONUS: Simple Dispatch script
