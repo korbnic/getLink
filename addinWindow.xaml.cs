@@ -14,6 +14,15 @@ using System.Windows.Interop;
 
 namespace getLink
 {
+    public struct FileData
+    {
+        public string VaultName;
+        public string FileID;
+        public string FileName;
+        public string FolderID;
+        public string FolderPath;
+    }
+
     public partial class addinWindow : Window
     {
         // https://stackoverflow.com/questions/1009983/help-button
@@ -29,14 +38,11 @@ namespace getLink
         private const int WM_SYSCOMMAND = 0x0112;
         private const int SC_CONTEXTHELP = 0xF180;
 
-        string VaultID;
-        string FileID;
-        string ProjectID;
-        string fName;
-        string fPath;
+        private FileData[] F2P;
+
         enum Action { OPEN, VIEW, EXPLORE, GET, LOCK, PROPERTIES, HISTORY };
         enum Format { RAW, PATH, FORMATED };
-        string[] formatedAction = new string[7];
+        string[] formatedAction = new string[7]; //SourceURL: {0}
         bool Canceled = false;
         sbyte lastAction = 2;
         private const string html = @"Version:0.9
@@ -44,14 +50,14 @@ StartHTML:<<<<<<<1
 EndHTML:<<<<<<<2
 StartFragment:<<<<<<<3
 EndFragment:<<<<<<<4
-SourceURL: {0}
 <html>
 <body>
 <!--StartFragment-->
-<a href='{0}'>{1}</a>
+{0}
 <!--EndFragment-->
 </body>
 </html>";
+        private const string anchor = "<a href='{0}'>{1}</a>";
 
         [DllImport("user32.dll")]
         private static extern uint GetWindowLong(IntPtr hwnd, int index);
@@ -90,14 +96,10 @@ SourceURL: {0}
             return IntPtr.Zero;
         }
 
-        public addinWindow(in string vID, in int pID, in int fID, in string fN, in string fP)
+        public addinWindow(ref FileData[] FP)
         {
             InitializeComponent();
-            VaultID = vID;
-            ProjectID = pID.ToString();
-            FileID = fID.ToString();
-            fName = fN;
-            fPath = fP;
+            F2P = FP;
             readSettings();
             updatePreview();
         }
@@ -223,47 +225,99 @@ SourceURL: {0}
             }
             updatePreview();
         }
-        private void updatePreview()
+
+        private IDataObject GetOutput(in bool isPreview)
         {
-            string previewString = "";
+            IDataObject tempDO = new DataObject();
+            string OutputString = null;
+            Action ActionID = (Action)Enum.ToObject(typeof(Action), readActionINDEX());
+
             switch (readFormatINDEX())
             {
                 case 0:
-                    Action ActionID = (Action)Enum.ToObject(typeof(Action), readActionINDEX());
-                    previewString = @"conisio://" + VaultID + "/" + ActionID + "?projectid=" + ProjectID + "&documentid=" + FileID + "&objecttype=1";
-                    tbPREVIEW.TextDecorations = null;
-                    tbPREVIEW.Foreground = Brushes.Black;
+                    if (F2P.Length == 1) OutputString = String.Format("conisio://{0}/{1}?projectid={2}&documentid={3}&objecttype=1", F2P[0].VaultName, ActionID, F2P[0].FolderID, F2P[0].FileID);
+                    else
+                        for (int i = 0; i < F2P.Length; i++)
+                        {
+                            if (F2P.Length - i > 1) OutputString = OutputString + "[" + F2P[i].FileName + "](" + string.Format("conisio://{0}/{1}?projectid={2}&documentid={3}&objecttype=1", F2P[i].VaultName, ActionID, F2P[i].FolderID, F2P[i].FileID) + ")" + Environment.NewLine;
+                            else OutputString = OutputString + "[" + F2P[i].FileName + "](" + string.Format("conisio://{0}/{1}?projectid={2}&documentid={3}&objecttype=1", F2P[i].VaultName, ActionID, F2P[i].FolderID, F2P[i].FileID) + ")";
+                        }
+                    tempDO.SetData(DataFormats.Text, OutputString);
                     break;
                 case 1:
                     if (IsFileNameIncluded.IsChecked == true)
+                        for (int i = 0; i < F2P.Length; i++)
+                        {
+                            if (F2P.Length - i > 1) OutputString = OutputString + F2P[i].FolderPath + "\\" + F2P[i].FileName + Environment.NewLine;
+                            else OutputString = OutputString + F2P[i].FolderPath + "\\" + F2P[i].FileName;
+                        }
+                    else OutputString = F2P[0].FolderPath + "\\";
+                    tempDO.SetData(DataFormats.Text, OutputString);
+                    break;
+                case 2:
+                    string PREFIX = prefixText.Text;
+                    string OutputStringPlain = null;
+                    string OutputStringPreview = null;
+                    if (!IsFileNameIncluded.IsChecked == true & String.IsNullOrWhiteSpace(PREFIX))
                     {
-                        previewString = fPath + "\\" + fName;
+                        MessageBox.Show("The text representation of the link cannot be empty. The program automatically included the file name in it.");
+                        IsFileNameIncluded.IsChecked = true;
                     }
-                    else previewString = fPath + "\\";
+                    for (int i = 0; i < F2P.Length; i++)
+                    {
+                        string URLname = null;
+                        string coniLink = string.Format("conisio://{0}/{1}?projectid={2}&documentid={3}&objecttype=1", F2P[i].VaultName, ActionID, F2P[i].FolderID, F2P[i].FileID);
+
+                        if (IsFileNameIncluded.IsChecked == true)
+                        {
+                            if (!string.IsNullOrWhiteSpace(PREFIX)) URLname = PREFIX + " " + F2P[i].FileName;
+                            else URLname = F2P[i].FileName;
+                        }
+                        else if (F2P.Length == 1) URLname = PREFIX;
+                        else URLname = PREFIX + $"({i + 1:00})";
+
+                        string webLink = string.Format(anchor, coniLink, URLname);
+
+                        if (F2P.Length - i > 1)
+                        {
+                            OutputStringPlain = OutputStringPlain + "[" + URLname + "](" + coniLink + ")" + Environment.NewLine;
+                            OutputString = OutputString + webLink + "<br />";
+                            OutputStringPreview = OutputStringPreview + URLname + Environment.NewLine;
+                        }
+                        else
+                        {
+                            OutputStringPlain = OutputStringPlain + "[" + URLname + "](" + coniLink + ")";
+                            OutputString = OutputString + webLink;
+                            OutputStringPreview = OutputStringPreview + URLname;
+                        }
+                    }
+                    if (isPreview) tempDO.SetData(DataFormats.Text, OutputStringPreview);
+                    else
+                    {
+                        tempDO.SetData(DataFormats.Html, string.Format(html, OutputString));
+                        tempDO.SetData(DataFormats.Text, OutputStringPlain);
+                    }
+                    break;
+            }
+            return tempDO;
+        }
+
+        private void updatePreview()
+        {
+            switch (readFormatINDEX())
+            {
+                case 0:
+                case 1:
                     tbPREVIEW.TextDecorations = null;
                     tbPREVIEW.Foreground = Brushes.Black;
                     break;
                 case 2:
-                    if (!IsFileNameIncluded.IsChecked == true & String.IsNullOrWhiteSpace(prefixText.Text))
-                    {
-                        MessageBox.Show("The text representation of the link cannot be empty. The program automatically included the file name in it.");
-                        IsFileNameIncluded.IsChecked = true;
-                        previewString = fName;
-                        break;
-                    }
-                    if (IsFileNameIncluded.IsChecked == true)
-                    {
-                        if (!String.IsNullOrWhiteSpace(prefixText.Text))
-                            previewString = prefixText.Text + " " + fName;
-                        else previewString = fName;
-                    }
-                    else previewString = prefixText.Text;
                     tbPREVIEW.TextDecorations = TextDecorations.Underline;
                     tbPREVIEW.Foreground = Brushes.Blue;
                     break;
             }
-            tbPREVIEW.ToolTip = previewString;
-            tbPREVIEW.Text = previewString;
+            tbPREVIEW.ToolTip = GetOutput(true).GetData(typeof(string));
+            tbPREVIEW.Text = GetOutput(true).GetData(typeof(string)).ToString();
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -293,33 +347,7 @@ SourceURL: {0}
         }
         private void bCOPY_Click(object sender, RoutedEventArgs e)
         {
-            Action ActionID = (Action)Enum.ToObject(typeof(Action), readActionINDEX());
-            string coniLink = String.Format("conisio://{0}/{1}?projectid={2}&documentid={3}&objecttype=1", VaultID, ActionID, ProjectID, FileID);
-            switch (readFormatINDEX())
-            {
-                case 0:
-                    Clipboard.SetText(coniLink);
-                    break;
-                case 1:
-                    if (IsFileNameIncluded.IsChecked == true)
-                    {
-                        Clipboard.SetText(fPath + "\\" + fName);
-                    }
-                    else Clipboard.SetText(fPath + "\\");
-                    break;
-                case 2:
-                    string URLname;
-                    if (IsFileNameIncluded.IsChecked ==true)
-                    {
-                        if (!String.IsNullOrWhiteSpace(prefixText.Text))
-                            URLname = prefixText.Text + " " + fName;
-                        else URLname = fName;
-                    }
-                    else URLname = prefixText.Text;
-                    string webLink = String.Format(html, coniLink, URLname);
-                    Clipboard.SetText(webLink, TextDataFormat.Html);
-                    break;
-            }
+            Clipboard.SetDataObject(GetOutput(false));
             Close();
         }
         private void bCANCEL_Click(object sender, RoutedEventArgs e)
@@ -391,7 +419,7 @@ SourceURL: {0}
         }
         private void bLOCATE_Click(object sender, RoutedEventArgs e)
         {
-            string coniLink = @"conisio://" + VaultID + "/EXPLORE?projectid=" + ProjectID + "&documentid=" + FileID + "&objecttype=1";
+            string coniLink = @"conisio://" + F2P[0].VaultName + "/EXPLORE?projectid=" + F2P[0].FolderID + "&documentid=" + F2P[0].FileID + "&objecttype=1";
             Process.Start(coniLink);
             Close();
         }
