@@ -1,6 +1,6 @@
 # getLink Add-in for SolidWorks PDM
 
-[![version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://semver.org)
+[![version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://semver.org)
 [![licence badge]][licence]
 [![stars badge]][stars]
 [![forks badge]][forks]
@@ -60,14 +60,14 @@ Congratulations, now you have installed the add-in and may start using it.
 
 The getLink add-in can be accessed in two ways when a file is selected:
 
-1. By right-clicking a file.
+1. By right-clicking a file(or group of files).
 1. By a button on the file data card. [See Adding a Button to a File Data Card](#adding-a-button-to-a-file-data-card)
 
 ![Image 06](./images/img06.png)
 
 ![Image 07](./images/img07.png)
 
-**Note:** Since add-in only works with individual files, the button cannot be effectively added to the folder data card, and the right-click menu will not work if a folder(or a group of files) is selected.
+**Note:** Since add-in only works with individual files, the button cannot be effectively added to the folder data card, and the right-click menu will not work if a folder is selected.
 
 ## Use the Tool
 
