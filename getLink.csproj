@@ -37,9 +37,10 @@
     <ApplicationIcon>addinIcon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EPDM.Interop.epdm">
-      <HintPath>DATA\SWPDM2019LIBS\EPDM.Interop.epdm.dll</HintPath>
+    <Reference Include="EPDM.Interop.epdm, Version=5.22.0.0, Culture=neutral, PublicKeyToken=0625a0c4bb5de148, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>DATA\SWPDM2021LIBS\EPDM.Interop.epdm.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
